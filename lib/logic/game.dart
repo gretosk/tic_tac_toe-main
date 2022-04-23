@@ -1,28 +1,40 @@
-import 'dart:core';
-
+class Player {
+  static const x = "X";
+  static const o = "O";
+  static const empty = "";
+}
 
 class Game {
   static final boardLength = 9;
+  List<String>? board;
+  static List<String> InitBoard() =>
+      List.generate(boardLength, (index) => Player.empty);
 
-  //TODO:
-  // - Player
-  // - Game
-  //  - variables - whos turn it is?
-  //  - board
-  //  - winnerCheck()
-
-
-  List<String> row1 = ['a1','b1','c1'];
-  List<String> row2 = ['a2','b2','c2'];
-  List<String> row3 = ['a3','b3','c3'];
-  List<String> col1 = ['a1','a2','a3'];
-  List<String> col2 = ['b1','b2','b3'];
-  List<String> col3 = ['c1','c2','c3'];
-  List<String> x1 = ['a1','b2','c3'];
-  List<String> x2 = ['c1','b2','a3'];
-
-
-
-
-
+  bool checkWinner(String playerTurn, int index, List<int> scoreboard) {
+    //Lengdin á columns
+    int colLength = 3;
+    // Row staðsettning
+    int row = index ~/ colLength;
+    // Lengd staðsettning
+    int col = index % colLength;
+    // Hvor er að gera?
+    int score = playerTurn == "X" ? 1 : -1;
+    //Bæta við á staðsettningu í Array.
+    scoreboard[row] += score;
+    //Bæta við, telst sem stig ef það lendir á 6 fyrir "beinan sigur", 7 fyrir "skásigur"
+    scoreboard[colLength + col] += score;
+    // Til þess að finna hornin og miðjuna.
+    if (row == col) {
+      scoreboard[6] += score;
+    }
+    // til þess að finna milli reitina.
+    if (colLength - 1 - col == row) {
+      scoreboard[7] += score;
+    }
+    if (scoreboard.contains(3) || scoreboard.contains(-3)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
