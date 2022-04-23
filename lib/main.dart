@@ -66,7 +66,7 @@ class _GameScreen extends State<MyHomePage> {
                         height: 200,//TODO - setja í breytu
                         decoration: BoxDecoration(
                           color: MainColor.white,
-                          borderRadius: BorderRadius.circular(10.0),
+                          borderRadius: BorderRadius.circular(16.0),
                         ),
                       )
                     );
